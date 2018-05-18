@@ -4,6 +4,6 @@
     android:shape="ring"
     android:thickness="3.8dp">
     <gradient
-        android:endColor="#fa8100"
-        android:startColor="#fae100" />
+        android:endColor="@color/cs_orange"
+        android:startColor="@color/cs_yellow" />
 </shape>

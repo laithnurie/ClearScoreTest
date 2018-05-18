@@ -55,8 +55,8 @@ class DountView : FrameLayout {
     }
 
     fun showError() {
-        scoreText.text = "【・ヘ・?】"
         scoreProgress.progress = 0
+        scoreText.text = context.getString(R.string.score_error)
         outOfMaxText.text = context.getString(R.string.something_went_wrong)
 
     }

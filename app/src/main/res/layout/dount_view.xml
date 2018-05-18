@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:background="@drawable/ring_bg"
         android:progressDrawable="@drawable/progress_bg"
         android:rotation="-90"
         tools:max="500"
@@ -26,12 +27,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/your_credit_score_is" />
+            android:text="@string/your_credit_score_is"
+            android:textColor="@color/black"
+            android:textSize="@dimen/message_text_size" />
 
         <TextView
             android:id="@+id/score_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/cs_yellow"
             android:textSize="@dimen/score_text_size"
             tools:text="500" />
 
@@ -39,6 +43,8 @@
             android:id="@+id/out_of_max_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/message_text_size"
             tools:text="out of 700" />
 
     </LinearLayout>
