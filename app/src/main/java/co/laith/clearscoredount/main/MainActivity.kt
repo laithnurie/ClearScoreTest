@@ -1,10 +1,10 @@
 package co.laith.clearscoredount.main
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.support.v7.app.AppCompatActivity
 import co.laith.clearscoredount.R
 import co.laith.clearscoredount.di.DaggerMainComponent
+import co.laith.clearscoredount.donut.DountView
 import co.laith.clearscoredount.service.ClearScoreService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -13,7 +13,10 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var disposable: Disposable
+    private lateinit var scoreDount: DountView
+    private lateinit var viewModel: MainViewModel
+
+    private var disposable: Disposable? = null
 
     @Inject
     lateinit var clearScoreService: ClearScoreService
@@ -23,24 +26,34 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         DaggerMainComponent.create().inject(this)
 
-        val viewModel = MainViewModel(clearScoreService)
+        scoreDount = findViewById(R.id.score_dount)
 
+        viewModel = MainViewModel(clearScoreService)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchScore()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (!disposable?.isDisposed!!) {
+            disposable?.dispose()
+        }
+    }
+
+    private fun fetchScore() {
+        if (disposable != null && !disposable?.isDisposed!!) {
+            disposable?.dispose()
+        }
         disposable = viewModel.getCreditScore()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Toast.makeText(this, "the credit score is : " + it.score, Toast.LENGTH_SHORT).show()
-
+                    scoreDount.setScore(it.score, it.minLimit, it.maxLimit)
                 }, {
-                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    scoreDount.showError()
                 })
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (disposable.isDisposed) {
-            disposable.dispose()
-        }
     }
 }
