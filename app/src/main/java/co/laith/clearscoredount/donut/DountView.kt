@@ -51,4 +51,23 @@ class DountView : FrameLayout {
         scoreProgress.progress = 0
 
     }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        val width = measuredWidth
+        val height = measuredHeight
+
+        val size = if (width > height) {
+            height
+        } else {
+            width
+        }
+        val progressBarLayoutParams = scoreProgress.layoutParams
+        progressBarLayoutParams.height = size
+        progressBarLayoutParams.width = size
+
+        scoreProgress.layoutParams = progressBarLayoutParams
+        setMeasuredDimension(size, size)
+    }
 }
