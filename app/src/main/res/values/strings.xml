@@ -2,6 +2,6 @@
     <string name="app_name">Clear Score Dount</string>
     <string name="your_credit_score_is">Your credit score is</string>
     <string name="out_of_max">Out of %d</string>
-    <string name="something_went_wrong">Some thing went wrong</string>
     <string name="score_error">【・ヘ・?】</string>
+    <string name="oh_no">Oh No</string>
 </resources>

@@ -48,12 +48,10 @@ class MainActivity : AppCompatActivity() {
             disposable?.dispose()
         }
         disposable = viewModel.getCreditScore()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     scoreDount.setScore(it.score, it.minLimit, it.maxLimit)
                 }, {
-                    scoreDount.showError()
+                    scoreDount.showError(it)
                 })
     }
 }
