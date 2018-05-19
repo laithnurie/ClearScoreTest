@@ -6,9 +6,7 @@ import co.laith.clearscoredount.R
 import co.laith.clearscoredount.di.DaggerMainComponent
 import co.laith.clearscoredount.donut.DountView
 import co.laith.clearscoredount.service.ClearScoreService
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
