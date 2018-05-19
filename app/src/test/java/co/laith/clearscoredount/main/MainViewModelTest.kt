@@ -28,8 +28,11 @@ class MainViewModelTest {
     }
 
     @Test
-    fun itShouldReturnAScore(){
-        val creditReportInfo = CreditReportInfo(0, 100, 500)
+    fun itShouldReturnAScore() {
+        val score = 0
+        val minScoreValue = 100
+        val maxScoreValue = 500
+        val creditReportInfo = CreditReportInfo(score, minScoreValue, maxScoreValue)
         val creditScoreResponse = CreditScoreResponse(creditReportInfo)
         Mockito.`when`(creditScoreService.getCrediScore()).thenReturn(Single.just(creditScoreResponse))
 
@@ -38,7 +41,18 @@ class MainViewModelTest {
         mainViewModel.getCreditScore()
 
         testObserver.assertValueCount(1)
+                .assertNoErrors()
+                .assertValue(MainUiModel(score, minScoreValue, maxScoreValue))
 
+    }
+
+    @Test
+    fun itShouldReturnAnError() {
+        Mockito.`when`(creditScoreService.getCrediScore()).thenReturn(Single.error(Exception()))
+
+        testObserver = mainViewModel.getCreditScore().test()
+        mainViewModel.getCreditScore()
+        testObserver.assertError(Exception::class.java)
 
     }
 
